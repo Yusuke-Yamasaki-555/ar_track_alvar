@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
 <launch>
+  <arg name="rn" default=""/>
+
   <!--TEST: master_pc only-->
   <!--<node pkg="usb_cam" type="usb_cam_node" name="usb_cam_node" output="screen">
     <param name="video_device" value="/dev/video2"/>
@@ -11,7 +13,7 @@
 
   <!--DEBUG: /base_link. Need change. /map?-->
   <!--args: x y z yaw pitch roll frame_id child_frame_id period_in_ms(100ms is a good value.)-->
-  <node pkg="tf" type="static_transform_publisher" name="static_transform_publisher" output="screen" args="0.01 0.0 0.0 0 0 0 /base_footprint /head_camera 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="static_transform_publisher" output="screen" args="0.01 0.0 0.0 0 0 0 $(arg rn)/base_footprint /head_camera 100"/>
 
   <arg name="marker_size" default="4" />
 	<arg name="max_new_marker_error" default="0.08" />
@@ -19,7 +21,7 @@
   <arg name="cam_image_topic" default="usb_cam_node/image_raw/decmp" />
   <!--Need change: image_raw -> image_exp-->
 	<arg name="cam_info_topic" default="usb_cam_node/camera_info" />
-	<arg name="output_frame" default="/head_camera" />
+  <arg name="output_frame" default="/head_camera" />
 
 	<node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" respawn="false" output="screen">
 		<param name="marker_size"           type="double" value="$(arg marker_size)" />
